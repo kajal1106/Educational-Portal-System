@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment Management</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="assignmentListContainer">
+   
+    <div class="dashboard-header">
+      <div class="button-container">
+        <button onclick="goBack()" class="">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+           <path d="M11.4 16.4L7.8 12.9H20V10.9H7.8L11.4 7.4L9.9 6L4 11.9L9.9 17.8L11.4 16.4Z" fill="#1C2E45" fill-opacity="0.6"/>
+          </svg> 
+          Back
+        </button>
+      </div>
+      <div class="user-profile">
+          <!-- User Avatar -->
+          <img src="/img/avatar.png" class="rounded-circle" alt="User">
+          <div class="profile-details">
+            John Doe
+        </div>
+      </div>
+    </div>
+    <div class="">
+        <!-- <div class="search-bar">
+          <input type="text" class="form-control" placeholder="Search...">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.7 18.3L15.5 14.1C15.3 13.9 15 13.8 14.7 13.8C15.5 12.8 16 11.4 16 10C16 6.7 13.3 4 10 4C6.7 4 4 6.7 4 10C4 13.3 6.7 16 10 16C11.4 16 12.8 15.5 13.8 14.6C13.8 14.9 13.8 15.2 14.1 15.4L18.3 19.6C18.5 19.8 18.8 19.9 19 19.9C19.2 19.9 19.5 19.8 19.7 19.6C20.1 19.3 20.1 18.7 19.7 18.3ZM10 14.5C7.5 14.5 5.5 12.5 5.5 10C5.5 7.5 7.5 5.5 10 5.5C12.5 5.5 14.5 7.5 14.5 10C14.5 12.5 12.5 14.5 10 14.5Z" fill="#1C2E45" fill-opacity="0.6"/>
+          </svg>
+        </div> -->
+        <h2 class="assignmentHeading">Assignments List</h2>
+     
+      <div class="mb-3">
+        <!-- Filter button to select module -->
+        <select id="moduleFilter" class="form-control">
+          <option value="all">All Modules</option>
+          <!-- Modules will be dynamically inserted here -->
+        </select>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Creation Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="assignmentTableBody">
+          <!-- Assignment rows will be dynamically inserted here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Include JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Include Custom JavaScript -->
+  <script>
+    // Function to navigate back
+    function goBack() {
+      window.history.back();
+    }
+   // Function to fetch module data from the API
+   async function fetchModules() {
+      try {
+        const response = await fetch('/modules');
+        if (!response.ok) {
+          throw new Error('Failed to fetch modules');
+        }
+        const modules = await response.json();
+        return modules;
+      } catch (error) {
+        console.error('Error fetching modules:', error);
+        return [];
+      }
+    }
+
+    // Function to generate module options for the filter dropdown
+    async function generateModuleOptions() {
+      const modules = await fetchModules();
+      const moduleFilter = document.getElementById('moduleFilter');
+      modules.forEach(module => {
+        const option = document.createElement('option');
+        option.value = module.module_id;
+        option.textContent = module.module_name;
+        moduleFilter.appendChild(option);
+      });
+    }
+     // Function to fetch assignment data from the API
+     async function fetchAssignments(moduleId) {
+      let url = '/assignments';
+      if (moduleId !== 'all') {
+        url += `?module_id=${moduleId}`;
+      }
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Failed to fetch assignments');
+        }
+        const assignments = await response.json();
+        return assignments;
+      } catch (error) {
+        console.error('Error fetching assignments:', error);
+        return [];
+      }
+    }
+ 
+     // Function to generate table rows for assignments based on module
+    async function generateAssignmentRows(moduleId) {
+      const assignments = await fetchAssignments(moduleId);
+      const filteredAssignments = moduleId === 'all' ? assignments : assignments.filter(assignment => assignment.module_id && assignment.module_id.toString() === moduleId);
+      const tableBody = document.getElementById('assignmentTableBody');
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      filteredAssignments.forEach(assignment => {
+        const row = document.createElement('tr');
+        row.id = `assignmentRow-${assignment.assignment_id}`;
+
+        const titleCell = document.createElement('td');
+        titleCell.textContent = assignment.title;
+        row.appendChild(titleCell);
+
+        const descriptionCell = document.createElement('td');
+        descriptionCell.textContent = assignment.description;
+        row.appendChild(descriptionCell);
+
+        const dueDateCell = document.createElement('td');
+        dueDateCell.textContent = new Date(assignment.due_date).toISOString().split('T')[0];
+        row.appendChild(dueDateCell);
+
+        const creationDateCell = document.createElement('td');
+        creationDateCell.textContent = new Date(assignment.creation_date).toISOString().split('T')[0];
+        row.appendChild(creationDateCell);
+
+        const editButtonCell = document.createElement('td');
+        const editButton = document.createElement('button');
+        editButton.className = 'btn btn-primary btn-sm';
+        editButton.textContent = 'Edit';
+        editButton.onclick = function() {
+          makeRowEditable(assignment.assignment_id);
+        };
+        editButtonCell.appendChild(editButton);
+        row.appendChild(editButtonCell);
+
+        const deleteButtonCell = document.createElement('td');
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger btn-sm';
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = function() {
+          deleteAssignment(assignment.assignment_id);
+        };
+        deleteButtonCell.appendChild(deleteButton);
+        row.appendChild(deleteButtonCell);
+
+        tableBody.appendChild(row);
+      });
+    }
+        
+// Call the function to generate initial table rows
+    generateAssignmentRows('all');
+
+    // Call the function to generate module options for the filter dropdown
+    generateModuleOptions();
+
+     // Function to handle module filter change
+     document.getElementById('moduleFilter').addEventListener('change', function() {
+      const moduleId = this.value;
+      generateAssignmentRows(moduleId);
+    });
+
+    // Function to make a row editable
+    function makeRowEditable(assignmentId) {
+      const row = document.getElementById(`assignmentRow-${assignmentId}`);
+      const cells = row.querySelectorAll('td:not(:last-child)');
+      cells.forEach(cell => {
+        cell.contentEditable = true;
+      });
+       // Change the button to Save
+      const editButtonCell = row.querySelector('td:nth-last-child(2)');
+      const editButton = editButtonCell.querySelector('button');
+      editButton.textContent = 'Save';
+      editButton.onclick = function() {
+        saveAssignment(assignmentId);
+      };
+    }
+
+    // Function to save changes to an assignment
+    function saveAssignment(assignmentId) {
+      const row = document.getElementById(`assignmentRow-${assignmentId}`);
+      const cells = row.querySelectorAll('td[contenteditable="true"]');
+      const updatedAssignment = {
+        title: cells[0].textContent,
+        description: cells[1].textContent,
+        due_date: new Date(cells[2].textContent),
+        creation_date: new Date(cells[3].textContent)
+      };
+
+      // Send updated assignment data to the server via API
+      fetch(`/assignments/${assignmentId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedAssignment)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to save assignment');
+        }
+        console.log('Assignment saved successfully');
+        
+        // Make the row non-editable again
+        cells.forEach(cell => {
+          cell.contentEditable = false;
+        });
+
+        // Change the button back to Edit
+        const editButtonCell = row.querySelector('td:nth-last-child(2)');
+        const editButton = editButtonCell.querySelector('button');
+        editButton.textContent = 'Edit';
+        editButton.onclick = function() {
+          makeRowEditable(assignmentId);
+        };
+      })
+      .catch(error => console.error('Error saving assignment:', error));
+    }
+    
+    // Function to delete an assignment
+    function deleteAssignment(assignmentId) {
+      if (confirm('Are you sure you want to delete this assignment?')) {
+        // Send delete request to the server via API
+        fetch(`/assignments/${assignmentId}`, {
+          method: 'DELETE'
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to delete assignment');
+          }
+          console.log('Assignment deleted successfully');
+          // Remove the table row from the DOM
+          const row = document.getElementById(`assignmentRow-${assignmentId}`);
+          row.remove();
+        })
+        .catch(error => console.error('Error deleting assignment:', error));
+      }
+    }
+  </script>
+</body>
+</html>

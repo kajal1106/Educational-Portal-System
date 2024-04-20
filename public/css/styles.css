@@ -1,0 +1,637 @@
+/* Reset some basic elements */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Apply a flex layout to the whole page */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar specific styles */
+.sidebar {
+  width: 250px;
+  background-color: #925FE2;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+  border-radius: 24px;
+}
+
+/* Top header background and content */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Header content */
+.dashboard-top {
+  border-radius: 15px;
+  width: 100%;
+  color: #fff;
+  background-color: #925FE2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.dashboard-top img {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: auto;
+  max-width: 100%;
+  width: 50%;
+  flex: 1 1 25%;
+}
+.date-and-greeting {
+  flex: 1 1 75%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column
+}
+
+.date-and-greeting p {
+  padding-bottom: 3em;
+  font-weight: 300;
+}
+.date-and-greeting span {
+  /* margin-top: .25rem;
+  font-weight: 300; */
+}
+.date-and-greeting h1 {
+  font-size: 1.6rem;
+  /* margin: 0; */
+}
+@media (max-width: 767px) {
+  .dashboard-top {
+    flex-direction: column-reverse;
+  }
+  .date-and-greeting p {
+    padding-bottom: 0;
+  }
+}
+/* Main content area */
+.main-content {
+  padding: 2em;
+  padding-right: 0;
+  flex-grow: 1;
+  background-color: #ffffff;
+  overflow: auto; /* Add scrolling to main content if necessary */
+}
+
+/* Styling for navigation items */
+.sidebar-nav {
+  list-style-type: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.sidebar-nav li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.sidebar-nav li a.active, .sidebar-nav li a:hover {
+  background-color: #D3B4E6; /* Lighter purple for hover/active state */
+}
+
+.nav-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .5rem;
+  background-color: #925FE2;
+  border-radius: 32px;
+  margin-bottom: 2em;
+}
+.nav-logo img {
+  height: 120px;
+  width: 120px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Chart and table containers */
+.chart-container, .table-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 20px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Tables styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #4B3F72; /* Darker purple for the header */
+  color: white;
+}
+
+/* Make sure the sidebar is always full height */
+.sidebar {
+  border-right: 1px solid #eee; /* Light border for the sidebar */
+  min-height: 100vh;
+}
+
+/* Add some top spacing and logo/avatar */
+.dashboard-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+/* Adjust the image path in your CSS */
+.logo {
+  background-image: url('/img/logo.png');
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+}
+
+/* Ensure your avatar image is correctly referenced */
+.profile-img {
+  background-image: url('img/avatar.png');
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+}
+
+
+/* Style for the search bar */
+.search-bar {
+  display: flex;
+    box-shadow: 0 3px 10px 0 rgba(99,118,129,.3);
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    align-items: center;
+}
+
+.search-bar input {
+  flex: 9 1;
+    border: none;
+    outline: none;
+    padding: .5rem 1rem;
+    box-sizing: border-box;
+}
+.search-bar svg {
+  color: #0a1d2a;
+  padding-right: .5em;
+}
+
+.dashboard-content {
+  padding-top: 2em;
+}
+
+/* Custom styles for top performer cards */
+.top-performer-card {
+  background-color: #FFFFFF; /* Adjust to match the color in the design */
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow effect */
+  border: #D3B4E6 2px solid;
+  background-color: #fff;
+    background-image: linear-gradient(216deg, hsla(0, 0%, 100%, .62), #fff);
+    box-shadow: 0 3px 10px 0 rgba(99,118,129,.3);
+    transition: box-shadow .25s cubic-bezier(.32,.01,0,1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0 !important;
+}
+
+.top-performer-card .card-title {
+  color: #925FE2; 
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.top-performer-card .card-text {
+  color: #666666; /* Lighter text for other content */
+  font-size: 1em;
+}
+
+.top-performer-card .list-group-item {
+  background-color: transparent; /* No background to match design */
+  border: none; /* Remove borders */
+  padding: 0; /* Align with card title */
+  margin-bottom: .5em;
+}
+
+
+#topPerformers {
+  animation: animated-border .6s cubic-bezier(.075,.82,.165,1) forwards;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 2em;
+  margin-bottom: 2em;
+}
+
+
+@keyframes animated-border {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+}
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes animatedgradient{
+  0% {
+    background-position: 0 50%;
+}
+50% {
+    background-position: 100% 50%;
+}
+100% {
+    background-position: 0 50%;
+}
+}
+
+
+.deadlines-notifications-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+  gap: 2em;
+}
+.upcoming-deadlines {
+  flex: 2;
+}
+
+.upcoming-deadlines, .course-management {
+  /* border-radius: 10px; */
+    padding: 1rem;
+    background-color: #fff;
+    background-image: linear-gradient(216deg, hsla(0, 0%, 100%, .62), #fff);
+    box-shadow: 0 3px 10px 0 rgba(99,118,129,.3);
+    transition: box-shadow .25s cubic-bezier(.32,.01,0,1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(189, 178, 255, 0.9);
+  border-radius:5px;
+}
+.course-management {
+  flex: 1;
+}
+/* CSS for tablet screens and smaller */
+@media (max-width: 991px) {
+  .deadlines-notifications-grid {
+    flex-direction: column;
+  }
+  .upcoming-deadlines, .course-management {
+    /* Make them full width on smaller screens */
+    width: 100%;
+    margin-bottom: 20px; /* Add some space between the stacked items */
+  }
+}
+
+.deadlines-notifications-grid h3, .course-management h3 {
+  font-size:1.6rem;
+  color: rgba(146, 95, 226, 0.9);
+  margin-bottom: .5em;
+}
+.deadlines-notifications-grid ul, #deadlinesList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.deadlines-notifications-grid li,  #deadlinesList li {
+  border-radius: 5px;
+  padding-left: .5em;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.deadline-date {
+  margin-right: 1rem;
+  font-weight: bold;
+}
+
+.deadline-task {
+  flex-grow: 1;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+#deadlinesList li:nth-child(1) {
+  background-color: rgba(255, 173, 173, 0.2); /* light red */
+}
+
+#deadlinesList li:nth-child(2) {
+  background-color: rgba(255, 214, 165, 0.2); /* light orange */
+}
+
+#deadlinesList li:nth-child(3) {
+  background-color: rgba(253, 255, 182, 0.2); /* light yellow */
+}
+
+#deadlinesList li:nth-child(4) {
+  background-color: rgba(202, 255, 191, 0.2); /* light green */
+}
+
+#deadlinesList li:nth-child(5) {
+  background-color: rgba(155, 246, 255, 0.2); /* light blue */
+}
+
+#deadlinesList li:nth-child(6) {
+  background-color: rgba(160, 196, 255, 0.2); /* light purple */
+}
+
+#deadlinesList li:nth-child(7) {
+  background-color: rgba(189, 178, 255, 0.2); /* lavender */
+}
+
+#deadlinesList li:nth-child(8) {
+  background-color: rgba(255, 198, 255, 0.2); /* light pink */
+}
+
+/* Add a general fallback color for any items beyond the eighth */
+#deadlinesList li:nth-child(n+9) {
+  background-color: rgba(233, 236, 239, 0.2); /* fallback light gray */
+}
+
+  #messagesList li:nth-child(odd) {
+    background-color: rgba(233, 236, 239, 0.2); /* light gray for odd items */
+  }
+  
+  #messagesList li:nth-child(even) {
+    background-color: rgba(248, 249, 250, 0.2); /* slightly darker gray for even items */
+  }
+
+
+  .messages-notifications-container {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .messages-notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .messages-notifications-header h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .see-all {
+    font-size: 0.9em;
+    color: #7a6ff0; /* Adjust the color to match your design */
+    text-decoration: none;
+  }
+  
+  .messages-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+  }
+  
+  .message-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .modules-icon-list {
+    display: flex;
+    flex-direction: row !important;
+  }
+  .module-icon {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    background-color: #ddd; /* Placeholder color */
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .message-content {
+    flex-grow: 1;
+  }
+  
+  .module-name {
+    font-size: 1em;
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+  
+  .message-content p {
+    font-size: 0.9em;
+    margin: 0;
+    color: #666;
+  }
+  
+  .see-more {
+    font-size: 0.9em;
+    color: #7a6ff0; /* Adjust the color to match your design */
+    text-decoration: none;
+    display: block; /* or inline-block */
+    margin-top: 5px;
+  }
+  
+
+  .module-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+
+
+
+.msg-module-container {
+  /* flex: 1; */
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  
+}
+.button-container button {
+    transition: background-color 0.3s ease;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    appearance: none;
+    font-size: inherit;
+    border: 2px solid transparent;
+    text-transform: inherit;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    background-color: #bdb2ff;
+    color: #ffff;
+    padding: 0.62em 1em;
+    border-radius: 0.5em;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.button-container button:hover {
+    background-color: #fff;
+    border: 1px solid #925FE2;
+    color: #925fe2;
+}
+
+.button-container button:last-child {
+    margin-bottom: 0;
+}
+
+.button-container svg {
+  color: #fff !important;
+  margin-left: .25em;
+}
+
+.assignmentListContainer {
+  position: relative;
+  padding: 3rem;
+  padding-top: 1rem;
+}
+.assignmentListContainer .dashboard-header{
+  margin-bottom: 0;
+
+}
+.assignmentListContainer table {
+  box-shadow: 0 3px 10px 0 rgba(99,118,129,.3);
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #fff;
+
+}
+table th {
+  background-color: #925FE2 !important;
+}
+.assignmentListContainer .button-container {
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+.assignmentListContainer .button-container svg{
+  margin-right: .25em;
+}
+.assignmentHeading {
+  text-align: center;
+  font-size: 2.2rem;
+  color: rgba(146, 95, 226, 0.9);
+  margin-bottom: .5em;
+}
+
+/* You can add additional custom styles for other elements as needed */
+/* Custom CSS */
+@media (min-width: 1200px) {
+  /* For desktop large screens */
+  .sidebar {
+    width: 300px; /* Larger sidebar for larger screens */
+  }
+  .main-content {
+    padding: 2em; /* More padding for larger screens */
+  }
+}
+
+@media (max-width: 1199px) {
+  /* For desktop screens */
+  .sidebar {
+    width: 250px; /* Standard sidebar size */
+  }
+}
+
+@media (max-width: 991px) {
+  /* For tablet screens */
+  .sidebar {
+    width: 200px; /* Smaller sidebar for tablet screens */
+  }
+}
+
+@media (max-width: 767px) {
+  /* For mobile screens */
+  .sidebar {
+    width: 100%; /* Full width sidebar for mobile screens */
+    margin-bottom: 20px; /* Space before main content */
+  }
+  .main-content {
+    padding: 1em; /* Less padding for smaller screens */
+  }
+  .dashboard-header,
+  .dashboard-top,
+  .dashboard-content {
+    padding-left: 1em;
+    padding-right: 1em; /* Adjust padding for smaller screens */
+  }
+  .button-container {
+    flex-direction: row;
+    justify-content: space-between; /* Horizontal button layout for mobile */
+  }
+}
+
+
+/* Ensures sidebar is hidden on small screens and shown on larger screens */
+@media (max-width: 1024px) {
+  #sidebar {
+    display: none;
+  }
+}
+
+/* Ensures sidebar is shown when expanded (via the collapse show class) */
+#sidebar.collapse.show {
+  display: block;
+}
+
+/* Additional styles for the toggle button visibility */
+.btn.btn-primary.d-md-none {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .btn.btn-primary.d-md-none {
+    display: block; /* Show the toggle button on small screens */
+  }
+}

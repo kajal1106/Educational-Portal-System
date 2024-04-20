@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Lecturer Dashboard</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Collapsible Button for Sidebar on Small Screens -->
+            <button class="btn btn-primary d-md-none" type="button" data-toggle="collapse" data-target="#sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+              <span>&#9776;</span>
+            </button>
+              <!-- Sidebar marked with an id for the collapse data-target -->
+              <div class="col-md-2 collapse d-md-flex pt-2 min-vh-100 sidebar" id="sidebar">                
+                <!-- Sidebar logo -->
+                <a class="nav-logo" href="#">
+                    <img src="/img/logo.png" alt="Logo" class="logo">
+                </a>
+                <ul class="sidebar-nav">
+                  <li><a href="#" class="active">Dashboard</a></li>
+                  <li><a href="#">Modules</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#assignGradeModal">Grade Assignments</a></li>
+                  <li><a href="#">Students</a></li>
+                  <li><a href="assignments.html">Assignments</a></li>
+              </ul>
+                <!-- Sidebar navigation items -->
+                <!-- ... Your sidebar items here ... -->
+            </div>
+            <div class="col-md-9 main-content">
+              <!-- Dashboard Header -->
+              <div class="dashboard-header">
+                <div class="search-bar">
+                    <!-- Search input -->
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M19.7 18.3L15.5 14.1C15.3 13.9 15 13.8 14.7 13.8C15.5 12.8 16 11.4 16 10C16 6.7 13.3 4 10 4C6.7 4 4 6.7 4 10C4 13.3 6.7 16 10 16C11.4 16 12.8 15.5 13.8 14.6C13.8 14.9 13.8 15.2 14.1 15.4L18.3 19.6C18.5 19.8 18.8 19.9 19 19.9C19.2 19.9 19.5 19.8 19.7 19.6C20.1 19.3 20.1 18.7 19.7 18.3ZM10 14.5C7.5 14.5 5.5 12.5 5.5 10C5.5 7.5 7.5 5.5 10 5.5C12.5 5.5 14.5 7.5 14.5 10C14.5 12.5 12.5 14.5 10 14.5Z" fill="#1C2E45" fill-opacity="0.6"/>
+                    </svg>
+                      
+                </div>
+                <div class="user-profile">
+                    <!-- User Avatar -->
+                    <img src="/img/avatar.png" class="rounded-circle" alt="User">
+                    <div class="profile-details">
+                      John Doe
+                  </div>
+                </div>
+              </div>
+              <div class="dashboard-top">
+                <div class="date-and-greeting">
+                  <p id="currentDate"></p>
+                  <div>
+                    <h1>Welcome back, John!</h1>
+                    <span>Always stay updated in your portal</span>
+                  </div>
+                </div>
+                <img  src="/img/header-bg.png" alt="Graphic" />
+              </div> 
+              <!-- Main content including charts and tables -->
+              <div class="dashboard-content">
+                <div class="deadlines-notifications-grid">
+                  <!-- Upcoming Deadlines Section -->
+                  <div class="upcoming-deadlines">
+                    <h3>Upcoming Deadlines</h3>
+                    <ul id="deadlinesList">
+                      <li>
+                        <span class="deadline-date">April 22, 2024</span>
+                        <span class="deadline-task">Assignment #3 - Data Structures</span>
+                    </li>
+                    <li>
+                        <span class="deadline-date">April 30, 2024</span>
+                        <span class="deadline-task">Midterm Exam - Algorithms</span>
+                    </li>
+                    <li>
+                        <span class="deadline-date">May 5, 2024</span>
+                        <span class="deadline-task">Project Proposal - AI Concepts</span>
+                    </li>
+                      <!-- Add more dummy deadlines here -->
+                    </ul>
+                  </div>
+
+                    <!-- Calendar Card Section -->
+                  <div class="course-management">
+                      <h3>Course Management</h3>
+                      <div class="button-container">
+                        <button data-toggle="modal" data-target="#uploadMaterialsModal">
+                          Upload Materials
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.1 14.9C18.1 14.7 18.1 14.5 18.1 14.3C18.1 11.9 16.2 10 13.9 10C13.6 10 13.3 10 13 10.1V8H15L12 4L9 8H11V9.5C10.6 9.3 10.1 9.2 9.7 9.2C8.1 9.2 6.8 10.4 6.8 12C6.8 12.3 6.9 12.6 7 12.9C5.4 13.1 4 14.7 4 16.4C4 18.3 5.5 20 7.3 20H17.6C19 20 20 18.6 20 17.4C20 16.2 19.2 15.2 18.1 14.9ZM17.6 19H7.3C6.1 19 5 17.8 5 16.5C5 15.2 6.1 14 7.3 14C7.4 14 7.6 14 7.7 14L9 14.3L8.2 13.1C8 12.8 7.8 12.4 7.8 12C7.8 11 8.6 10.2 9.6 10.2C10.1 10.2 10.6 10.4 10.9 10.8V14H12.9V11.2C13.2 11.1 13.5 11.1 13.8 11.1C15.6 11.1 17 12.6 17 14.4C17 14.7 17 15 16.9 15.3L16.7 15.9H17.5C18.2 15.9 18.9 16.6 18.9 17.4C19 18.1 18.4 19 17.6 19Z" fill="#1C2E45" fill-opacity="0.6"/>
+                          </svg>
+                            
+                        </button>
+                        <button data-toggle="modal" data-target="#createAssignmentModal">
+                          Create Assignment
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 8C20 8 20 7 19 6C18 5 17.1 5 17.1 5L16 6.1V4H4V20H16V12L20 8ZM10.3 15.4L9.7 14.8L10 13.7L11.5 15.2L10.3 15.4ZM11.2 13.5L10.6 12.9L15.8 7.7C16 7.8 16.2 8 16.4 8.2L11.2 13.5ZM18.1 6.5L17.2 7.5C17 7.3 16.8 7.2 16.6 7L17.5 6.1C17.6 6.2 17.8 6.3 18.1 6.5ZM15 19H5V5H15V7.1L9.1 13L8 17.1L12.1 16L15 13V19Z" fill="#1C2E45" fill-opacity="0.6"/>
+                          </svg>                               
+                        </button>
+                        <button onclick="enterLectureNotes()">
+                          Enter Lecture Notes
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 15.8633L4 19.9633L8.1 18.9633L17.3 9.76333L14.2 6.66333L5 15.8633ZM5.5 18.9633L5.1 18.4633L5.5 16.4633L7.5 18.4633L5.5 18.9633ZM14.9 8.36333L6.8 16.3633L6.2 15.7633L14.3 7.76333L14.9 8.36333Z" fill="#1C2E45" fill-opacity="0.6"/>
+                            <path d="M19.3 4.66333C18.2 3.56333 16.7 4.16333 16.7 4.16333L15.2 5.66333L18.3 8.76333L19.8 7.26333C19.8 7.16333 20.4 5.76333 19.3 4.66333ZM17.4 5.56333L16.9 5.06333C17.5 4.46333 18 4.96333 18 4.96333L17.4 5.56333Z" fill="#1C2E45" fill-opacity="0.6"/>
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- Add more management tasks as needed -->
+                  </div>
+                </div>  
+                
+                <!-- Section for top-performing students using cards -->
+                <div class="" id="topPerformers">
+                  <!-- Cards with top performers will be dynamically inserted here -->
+                </div>
+                  
+                <div class="row">
+                  <!-- Attendance Chart Container -->
+                  <div class="col-lg-6">
+                    <div class="chart-container" style="position: relative; height:30vh;">
+                      <canvas id="attendanceChart"></canvas>
+                    </div>
+                  </div>
+                  
+                  <!-- Top Performing Students Chart Container -->
+                  <div class="col-lg-6">
+                    <div class="chart-container" style="position: relative; height:30vh;">
+                      <canvas id="topPerformingStudentsChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Table for displaying Lecturer information -->
+                <table class="table table-striped mt-4">
+                  <thead>
+                      <tr>
+                          <th>Lecturer Name</th>
+                          <th>Lecturer Email</th>
+                          <th>Module</th>
+                      </tr>
+                  </thead>
+                  <tbody id="lecturersTable">
+                      <!-- Lecturer and module information will be dynamically inserted here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign Grade Modal -->
+    <div class="modal fade" id="assignGradeModal" tabindex="-1" role="dialog" aria-labelledby="assignGradeModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="assignGradeModalLabel">Assign Grade</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Form for assigning grades -->
+            <form id="assignGradeForm">
+              <div class="form-group">
+                <label for="studentSelect">Student</label>
+                <select class="form-control" id="studentSelect">
+                  <!-- Student options will be dynamically inserted here -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="moduleSelect">Module</label>
+                <select class="form-control" id="moduleSelect">
+                  <!-- Module options will be dynamically inserted here -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="scoreInput">Score</label>
+                <input type="number" class="form-control" id="scoreInput" placeholder="Enter score">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitGrade()">Assign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Materials Modal -->
+    <div class="modal fade" id="uploadMaterialsModal" tabindex="-1" role="dialog" aria-labelledby="uploadMaterialsModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="uploadMaterialsLabel">Upload Materials</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- The form inside the modal for uploading materials -->
+            <form id="uploadMaterialsForm">
+              <!-- Module dropdown -->
+              <div class="form-group">
+                <label for="moduleSelect">Module</label>
+                <select class="form-control" id="uploadMaterialsModuleSelect" required>
+                  <!-- Options will be dynamically inserted here -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="materialTitle">Title</label>
+                <input type="text" class="form-control" id="materialTitle" required>
+              </div>
+              <div class="form-group">
+                <label for="materialDescription">Description</label>
+                <textarea class="form-control" id="materialDescription" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="materialFile">File</label>
+                <input type="file" class="form-control-file" id="materialFile" required>
+              </div>
+              <!-- Additional form fields as needed -->
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Assignment Modal -->
+    <div class="modal fade" id="createAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="createAssignmentModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createAssignmentModalLabel">Create Assignment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Form for creating assignments -->
+            <form id="createAssignmentForm">
+              <!-- Module Select Dropdown for Create Assignment Modal -->
+              <div class="form-group">
+                <label for="assignmentModule">Module</label>
+                <select class="form-control" id="assignmentModule" required>
+                  <!-- Module options will be dynamically inserted here -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="assignmentTitle">Title</label>
+                <input type="text" class="form-control" id="assignmentTitle" placeholder="Enter title" required>
+              </div>
+              <div class="form-group">
+                <label for="assignmentDescription">Description</label>
+                <textarea class="form-control" id="assignmentDescription" placeholder="Enter description" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="assignmentDeadline">Deadline</label>
+                <input type="datetime-local" class="form-control" id="assignmentDeadline" required>
+              </div>
+              <!-- Additional form fields as needed -->
+              <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enter Lecture Notes Modal -->
+    <div class="modal fade" id="enterLectureNotesModal" tabindex="-1" role="dialog" aria-labelledby="enterLectureNotesModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="enterLectureNotesModalLabel">Enter Lecture Notes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Form for entering lecture notes -->
+            <form id="enterLectureNotesForm">
+              <!-- Module Select Dropdown for Enter Lecture Notes Modal -->
+              <div class="form-group">
+                <label for="lectureModule">Module</label>
+                <select class="form-control" id="lectureModule" required>
+                  <!-- Module options will be dynamically inserted here -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="lectureTitle">Title</label>
+                <input type="text" class="form-control" id="lectureTitle" placeholder="Enter title" required>
+              </div>
+              <div class="form-group">
+                <label for="lectureDescription">Description</label>
+                <textarea class="form-control" id="lectureDescription" placeholder="Enter description" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="lectureDate">Date</label>
+                <input type="datetime-local" class="form-control" id="lectureDate" required>
+              </div>
+              <!-- Additional form fields as needed -->
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="successMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.2/umd.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
+  <script src="/js/script.js"></script>
+</body>
+</html>
